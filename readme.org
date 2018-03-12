@@ -1,0 +1,102 @@
+* Proyecto
+El proyecto en NetBeans se llama piano. A continuación se describe el
+contenido del directorio del proyecto.
+** Carpetas
+1. arduino :: Contiene el código para Ardino, con quien ser realiza la
+              conexión serial. Se estuvo probando con Arduino UNO.
+2. lib :: Contiene la librería JFugue 5.0.9.
+3. midi :: Archivos midi que se usaron como prueba.
+4. src :: Código Fuente.
+
+La clase =ConexionConsola=, en el paquete =net= se utilizó para
+pruebas. Es independiente y se puede borrar sin afectar.
+
+* Entorno
+Estas son las características de la máquina en dónde se desarrollo
+~pianoTiles~:
+- IDE :: NetBeans IDE 8.2 (Build 201609300101)
+- Sistema Operativo :: Windows 7 version 6.1 running on amd64; Cp1252; es_GT (nb)
+- Versión del JDK (java) :: ~jdk1.8.0_161~
+- Directorio del proyecto :: ~C:\Users\wegt\Documents\NetBeansProjects\piano~
+
+* Estado
+Cuando se le da click en "Facil" se envia el mensaje ha
+arduino. Arduino lo recibe y devuelve otro mensaje que es mostrado en
+la consola de NetBeans. Lo mismo ocurre con los otros opciones de
+"Medio" y "Dificil".
+
+Los archivos midi que se lista en =JComboBox= estan ubicados en:
+#+BEGIN_EXAMPLE
+piano\midi\
+#+END_EXAMPLE
+
+Cuando se le da a "Cargar Midi" se muestra en consola frecuencia y
+duración de las notas del archivo seleccionado en el =JComboBox=. La
+recepción de esta información en arduino esta pendiente, pero esta
+listo el contexto para que se pueda hacer.
+
+* Dependencias
+** Librería de JFugue
+La librería [[http://www.jfugue.org][JFugue]] es utilizado para leer archivos ~.midi~. Se añade
+al IDE de la forma típica, agregando un ~.jar~
+
+[[https://www.cs.utexas.edu/users/novak/cs314/jfugue-chapter1.pdf][Getting Started with JFugue]] es una buena guía para realizar los
+primeros pasos con JFugue.
+
+Nota: después de añadir la librería a eclipse y hacer una pequeña
+prueba con la librería obtenía el siguiente error:
+
+#+BEGIN_EXAMPLE
+mar 07, 2018 06:31:46 PM java.util.prefs.WindowsPreferences <init>
+WARNING: Could not open/create prefs root node Software\JavaSoft\Prefs at root 0x80000002. Windows RegCreateKeyEx(...) returned error code 5.
+#+END_EXAMPLE
+
+pese ha este mensaje el código aparente se ejecutaba correctamente. El
+[[http://www-01.ibm.com/support/docview.wss?uid=swg21496098][remedio]] fue añadir la clave
+=HKEY_LOCAL_MACHINE\Software\JavaSoft\Prefs= al editor de registro de
+windows.
+
+Para abrir el editor de registro de windows:
+1. Presione la tecla de windows
+2. Escriba "ejecutar" y presione enter
+3. En la ventanita que se abre, escribir ~regedit~
+4. Acepte los permisos
+5. presionar enter
+
+** Librería RXTX
+La librería [[http://rxtx.qbang.org/wiki/index.php/Main_Page][RXTX]] es para la conexión serial. El paquete ~net~ es
+básicamente el ejemplo [[http://rxtx.qbang.org/wiki/index.php/Documented_interface_to_communicate_with_serial_ports_for_beginners,_including_example_project][Documented interface to...]] de la página
+oficial.
+
+Algo importante es que no se utilizó los binarios pre construídos de
+esta página oficial ya que no contaban para arquitecturas de
+64-bits. En cambio se descargó de [[http://fizzed.com/oss/rxtx-for-java][Fizzed]], que es un fork del proyecto
+original.
+
+* Interesante
+La librería [[https://github.com/bhagman/Tone][Tone Library]] ejecuta notas musicales en
+arduino. Instalandolo en el IDE de Arduino, se puede ejecutar
+ejemplos. Uno particularmente interesante es el que permite ejecutar
+melodias mediante el /lenguaje de tono/ *RTTTL*.
+
+** Lenguaje de tono
+Lenguaje de tono transferible ([[https://en.wikipedia.org/wiki/Ring_Tone_Transfer_Language][RTTTL]]) fue desarrollado por Nokia y
+permite especificar mediante una cadena algún tono
+
+* Pagina para descargar archivos MIDI
+En esta [[http://www.midiworld.com/][página]] hay variedad de archivos ~.mid~
+
+
+* Enlaces varios
+
+** Teoría
+1. https://www.midi.org/articles/arduino-midi-output-basics
+2. https://www.arduino.cc/en/Tutorial/Midi
+3. https://www.cs.utexas.edu/users/novak/cs314/jfugue-chapter2.pdf
+7. https://geekytheory.com/arduinomidi-tu-propio-piano
+4. http://www.music-software-development.com/
+
+** Código
+1. https://jfuguetutorials.blogspot.com/2016/07/jfugue25-transposing-of-notes-and-chords.html
+2. https://stackoverflow.com/questions/37721745/jfugue-to-parse-midi-file-and-output-csv
+3. https://github.com/FortySevenEffects/arduino_midi_library
